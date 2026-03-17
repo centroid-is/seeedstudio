@@ -63,10 +63,10 @@ WORKDIR /build/igh-seeedstudio
 # -b:  binary-only build
 # Note: ec_r8169.ko assertion is already in debian/rules override_dh_auto_build
 # Note: dpkg-buildpackage outputs .deb to parent directory /build/
-# Debug: show what's in kernel headers dir
-RUN ls /usr/src/linux-headers-5.15.148-tegra/ | head -20 && \
-    test -f /usr/src/linux-headers-5.15.148-tegra/.config && echo "HAS .config" || echo "MISSING .config" && \
-    test -f /usr/src/linux-headers-5.15.148-tegra/Module.symvers && echo "HAS Module.symvers" || echo "MISSING Module.symvers"
+# Debug: show available L4T kernel packages and full headers structure
+RUN apt-cache search nvidia-l4t-kernel && \
+    echo "---CONTENTS---" && \
+    find /usr/src/linux-headers-5.15.148-tegra*/ -maxdepth 1 -type f -o -type d | sort | head -40
 
 # -d: skip build-deps check (nvidia-l4t-kernel-headers was extracted via
 #      dpkg -x, not installed, so dpkg doesn't know about it)
