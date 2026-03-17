@@ -16,7 +16,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 2: Source and Build** - IgH EtherCAT 1.6 fetched, configured with --enable-r8169 and --prefix=/usr, compiled to produce ec_master.ko and ec_r8169.ko (completed 2026-03-17)
 - [x] **Phase 3: Install Lifecycle** - postinst installs blacklist, runs depmod, auto-detects MAC, writes ethercat.conf, starts service in correct order (completed 2026-03-17)
 - [x] **Phase 4: Removal Lifecycle** - prerm stops service and unloads modules cleanly before file removal
-- [ ] **Phase 5: Docker Verification** - Dockerfile builds .deb from scratch and verifies dpkg -i succeeds
+- [x] **Phase 5: Docker Verification** - Dockerfile builds .deb from scratch and verifies dpkg -i succeeds (completed 2026-03-17)
 - [ ] **Phase 6: CI/CD Pipeline** - GitHub Actions builds .deb on push, publishes GitHub Release artifact on v* tag
 
 ## Phase Details
@@ -85,7 +85,7 @@ Plans:
   1. docker build completes without errors on aarch64 using ubuntu:22.04 base
   2. dpkg -i inside the container exits 0 with no error or warning output
   3. The Dockerfile asserts that devices/ec_r8169.ko exists after make (build fails loudly if r8169 module was not produced)
-**Plans:** 1 plan
+**Plans:** 1/1 plans complete
 
 Plans:
 - [ ] 05-01-PLAN.md — Create Dockerfile and .dockerignore for end-to-end build and install verification
@@ -111,5 +111,5 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
 | 2. Source and Build | 1/1 | Complete    | 2026-03-17 |
 | 3. Install Lifecycle | 1/1 | Complete    | 2026-03-17 |
 | 4. Removal Lifecycle | 1/1 | Complete    | 2026-03-17 |
-| 5. Docker Verification | 0/1 | Not started | - |
+| 5. Docker Verification | 0/1 | Complete    | 2026-03-17 |
 | 6. CI/CD Pipeline | 0/TBD | Not started | - |
