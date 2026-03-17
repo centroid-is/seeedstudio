@@ -30,7 +30,10 @@ Decimal phases appear between their surrounding integers in numeric order.
   2. Package declares Architecture: arm64 in debian/control
   3. Build-Depends in debian/control includes build-essential, autoconf, automake, and the pinned nvidia-l4t-kernel-headers package
   4. dpkg-buildpackage --no-check-builddeps parses without errors
-**Plans**: TBD
+**Plans:** 1 plan
+
+Plans:
+- [ ] 01-01-PLAN.md — Create and validate all debian/ packaging metadata files
 
 ### Phase 2: Source and Build
 **Goal**: Running dpkg-buildpackage inside the build environment produces igh-seeedstudio_1.6.0_arm64.deb containing both ec_master.ko and ec_r8169.ko compiled against the Tegra 5.15.148 kernel headers
@@ -92,7 +95,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Debian Scaffold | 0/TBD | Not started | - |
+| 1. Debian Scaffold | 0/1 | Planning complete | - |
 | 2. Source and Build | 0/TBD | Not started | - |
 | 3. Install Lifecycle | 0/TBD | Not started | - |
 | 4. Removal Lifecycle | 0/TBD | Not started | - |
