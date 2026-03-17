@@ -14,9 +14,9 @@
 
 ### Debian Packaging
 
-- [ ] **DEB-01**: debian/ directory with control, rules, changelog, copyright, and maintainer scripts
-- [ ] **DEB-02**: Package builds as `igh-seeedstudio_1.6.0_arm64.deb`
-- [ ] **DEB-03**: Package declares Architecture: arm64
+- [x] **DEB-01**: debian/ directory with control, rules, changelog, copyright, and maintainer scripts
+- [x] **DEB-02**: Package builds as `igh-seeedstudio_1.6.0_arm64.deb`
+- [x] **DEB-03**: Package declares Architecture: arm64
 
 ### Install (postinst)
 
@@ -77,9 +77,9 @@
 | SRC-02 | Phase 2 | Pending |
 | SRC-03 | Phase 2 | Pending |
 | SRC-04 | Phase 2 | Pending |
-| DEB-01 | Phase 1 | Pending |
-| DEB-02 | Phase 1 | Pending |
-| DEB-03 | Phase 1 | Pending |
+| DEB-01 | Phase 1 | Complete |
+| DEB-02 | Phase 1 | Complete |
+| DEB-03 | Phase 1 | Complete |
 | INST-01 | Phase 3 | Pending |
 | INST-02 | Phase 3 | Pending |
 | INST-03 | Phase 3 | Pending |
