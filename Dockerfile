@@ -57,6 +57,6 @@ RUN dpkg-buildpackage -us -uc -b -d
 RUN dpkg -i /build/igh-seeedstudio_1.6.0_arm64.deb
 
 # --- Final assertions ---
-RUN test -f /lib/modules/5.15.148-tegra/extra/ec_r8169.ko && echo "PASS: ec_r8169.ko is present"
-RUN test -f /lib/modules/5.15.148-tegra/extra/ec_master.ko && echo "PASS: ec_master.ko is present"
+RUN test -f /lib/modules/5.15.148-tegra/extra/devices/r8169/ec_r8169.ko && echo "PASS: ec_r8169.ko is present"
+RUN test -f /lib/modules/5.15.148-tegra/extra/master/ec_master.ko && echo "PASS: ec_master.ko is present"
 RUN test -x /usr/bin/ethercat && echo "PASS: ethercat CLI is present"
