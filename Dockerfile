@@ -18,6 +18,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     fakeroot \
     wget \
     bc flex bison libssl-dev \
+    kmod \
     && rm -rf /var/lib/apt/lists/*
 
 # --- Kernel source: L4T BSP for out-of-tree module builds ---
