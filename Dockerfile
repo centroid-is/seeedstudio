@@ -63,7 +63,9 @@ WORKDIR /build/igh-seeedstudio
 # -b:  binary-only build
 # Note: ec_r8169.ko assertion is already in debian/rules override_dh_auto_build
 # Note: dpkg-buildpackage outputs .deb to parent directory /build/
-RUN dpkg-buildpackage -us -uc -b
+# -d: skip build-deps check (nvidia-l4t-kernel-headers was extracted via
+#      dpkg -x, not installed, so dpkg doesn't know about it)
+RUN dpkg-buildpackage -us -uc -b -d
 
 # --- Stage 7: Install verification ---
 # postinst is Docker-safe: systemctl guarded by /run/systemd/system check,
