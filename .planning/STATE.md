@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: completed
-stopped_at: Completed 02-01-PLAN.md
-last_updated: "2026-03-17T16:53:06.587Z"
-last_activity: 2026-03-17 — Completed 02-01-PLAN.md (source and build pipeline)
+stopped_at: Completed 03-01-PLAN.md
+last_updated: "2026-03-17T17:18:26.610Z"
+last_activity: 2026-03-17 — Completed 03-01-PLAN.md (install lifecycle postinst + rules)
 progress:
   total_phases: 6
-  completed_phases: 2
-  total_plans: 2
-  completed_plans: 2
+  completed_phases: 3
+  total_plans: 3
+  completed_plans: 3
   percent: 100
 ---
 
@@ -21,23 +21,23 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-17)
 
 **Core value:** A single `dpkg -i` installs a working EtherCAT master on a Jetson with the Realtek r8169 NIC
-**Current focus:** Phase 2 - Source and Build
+**Current focus:** Phase 3 - Install Lifecycle
 
 ## Current Position
 
-Phase: 2 of 6 (Source and Build)
+Phase: 3 of 6 (Install Lifecycle)
 Plan: 1 of 1 in current phase
-Status: Phase 2 complete
-Last activity: 2026-03-17 — Completed 02-01-PLAN.md (source and build pipeline)
+Status: Phase 3 complete
+Last activity: 2026-03-17 — Completed 03-01-PLAN.md (install lifecycle postinst + rules)
 
 Progress: [██████████] 100%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 2
+- Total plans completed: 3
 - Average duration: 2min
-- Total execution time: 0.07 hours
+- Total execution time: 0.10 hours
 
 **By Phase:**
 
@@ -45,9 +45,10 @@ Progress: [██████████] 100%
 |-------|-------|-------|----------|
 | 01-debian-scaffold | 1 | 2min | 2min |
 | 02-source-and-build | 1 | 2min | 2min |
+| 03-install-lifecycle | 1 | 2min | 2min |
 
 **Recent Trend:**
-- Last 5 plans: 01-01 (2min), 02-01 (2min)
+- Last 5 plans: 01-01 (2min), 02-01 (2min), 03-01 (2min)
 - Trend: stable
 
 *Updated after each plan completion*
@@ -71,6 +72,9 @@ Recent decisions affecting current work:
 - [Phase 02]: Used --with-module-dir=extra (modules install to /lib/modules/ver/extra/ per roadmap)
 - [Phase 02]: Added override_dh_autoreconf with @true to skip autoreconf in wrong directory
 - [Phase 02]: Added override_dh_shlibdeps -X.ko for kernel module shlibdeps exclusion
+- [Phase 03-install-lifecycle]: Service start placed AFTER #DEBHELPER# token to ensure depmod runs first
+- [Phase 03-install-lifecycle]: systemctl restart guarded by /run/systemd/system check for Docker/chroot safety
+- [Phase 03-install-lifecycle]: MAC detection graceful fallback (empty string + stderr warning) when interface not present
 
 ### Pending Todos
 
@@ -84,6 +88,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-17T16:47:39Z
-Stopped at: Completed 02-01-PLAN.md
+Last session: 2026-03-17T17:14:59Z
+Stopped at: Completed 03-01-PLAN.md
 Resume file: None

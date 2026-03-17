@@ -20,11 +20,11 @@
 
 ### Install (postinst)
 
-- [ ] **INST-01**: postinst copies blacklist-eth.conf to /etc/modprobe.d/ (blacklists r8168 + r8169 stock drivers)
-- [ ] **INST-02**: postinst runs `depmod -a` after module files are installed
-- [ ] **INST-03**: postinst auto-detects MAC address from /sys/class/net/enP8p1s0/address
-- [ ] **INST-04**: postinst generates /etc/ethercat.conf with MASTER0_DEVICE=<detected MAC> and DEVICE_MODULES="r8169"
-- [ ] **INST-05**: postinst restarts ethercat systemd service
+- [x] **INST-01**: postinst copies blacklist-eth.conf to /etc/modprobe.d/ (blacklists r8168 + r8169 stock drivers)
+- [x] **INST-02**: postinst runs `depmod -a` after module files are installed
+- [x] **INST-03**: postinst auto-detects MAC address from /sys/class/net/enP8p1s0/address
+- [x] **INST-04**: postinst generates /etc/ethercat.conf with MASTER0_DEVICE=<detected MAC> and DEVICE_MODULES="r8169"
+- [x] **INST-05**: postinst restarts ethercat systemd service
 
 ### Removal (prerm/postrm)
 
@@ -80,11 +80,11 @@
 | DEB-01 | Phase 1 | Complete |
 | DEB-02 | Phase 1 | Complete |
 | DEB-03 | Phase 1 | Complete |
-| INST-01 | Phase 3 | Pending |
-| INST-02 | Phase 3 | Pending |
-| INST-03 | Phase 3 | Pending |
-| INST-04 | Phase 3 | Pending |
-| INST-05 | Phase 3 | Pending |
+| INST-01 | Phase 3 | Complete |
+| INST-02 | Phase 3 | Complete |
+| INST-03 | Phase 3 | Complete |
+| INST-04 | Phase 3 | Complete |
+| INST-05 | Phase 3 | Complete |
 | REM-01 | Phase 4 | Pending |
 | REM-02 | Phase 4 | Pending |
 | DOC-01 | Phase 5 | Pending |
