@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: completed
-stopped_at: Completed 01-01-PLAN.md
-last_updated: "2026-03-17T16:28:17.580Z"
-last_activity: 2026-03-17 — Completed 01-01-PLAN.md (debian scaffold)
+stopped_at: Completed 02-01-PLAN.md
+last_updated: "2026-03-17T16:47:39.000Z"
+last_activity: 2026-03-17 — Completed 02-01-PLAN.md (source and build pipeline)
 progress:
   total_phases: 6
-  completed_phases: 1
-  total_plans: 1
-  completed_plans: 1
+  completed_phases: 2
+  total_plans: 2
+  completed_plans: 2
   percent: 100
 ---
 
@@ -21,33 +21,34 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-17)
 
 **Core value:** A single `dpkg -i` installs a working EtherCAT master on a Jetson with the Realtek r8169 NIC
-**Current focus:** Phase 1 - Debian Scaffold
+**Current focus:** Phase 2 - Source and Build
 
 ## Current Position
 
-Phase: 1 of 6 (Debian Scaffold)
+Phase: 2 of 6 (Source and Build)
 Plan: 1 of 1 in current phase
-Status: Phase 1 complete
-Last activity: 2026-03-17 — Completed 01-01-PLAN.md (debian scaffold)
+Status: Phase 2 complete
+Last activity: 2026-03-17 — Completed 02-01-PLAN.md (source and build pipeline)
 
 Progress: [██████████] 100%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 1
+- Total plans completed: 2
 - Average duration: 2min
-- Total execution time: 0.03 hours
+- Total execution time: 0.07 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 01-debian-scaffold | 1 | 2min | 2min |
+| 02-source-and-build | 1 | 2min | 2min |
 
 **Recent Trend:**
-- Last 5 plans: 01-01 (2min)
-- Trend: baseline
+- Last 5 plans: 01-01 (2min), 02-01 (2min)
+- Trend: stable
 
 *Updated after each plan completion*
 
@@ -66,6 +67,10 @@ Recent decisions affecting current work:
 - [Phase 01]: Used nvidia-l4t-kernel-headers without version pin in Build-Depends (to be refined in Phase 2)
 - [Phase 01]: Created debian/compat with value 13 (redundant with Build-Depends but roadmap requires it)
 - [Phase 01]: Used 3.0 (native) source format for single-repo project
+- [Phase 02]: Used override_dh_update_autotools_config for source fetch (runs before autoreconf/configure)
+- [Phase 02]: Used --with-module-dir=extra (modules install to /lib/modules/ver/extra/ per roadmap)
+- [Phase 02]: Added override_dh_autoreconf with @true to skip autoreconf in wrong directory
+- [Phase 02]: Added override_dh_shlibdeps -X.ko for kernel module shlibdeps exclusion
 
 ### Pending Todos
 
@@ -79,6 +84,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-17T16:20:05.969Z
-Stopped at: Completed 01-01-PLAN.md
+Last session: 2026-03-17T16:47:39Z
+Stopped at: Completed 02-01-PLAN.md
 Resume file: None

@@ -7,10 +7,10 @@
 
 ### Source & Build
 
-- [ ] **SRC-01**: Package fetches IgH EtherCAT 1.6 source from official GitLab repo (https://gitlab.com/etherlab.org/ethercat.git, stable-1.6)
-- [ ] **SRC-02**: Package installs build-essential and automake as build dependencies
-- [ ] **SRC-03**: Configure runs with `--enable-r8169 --with-linux-dir` pointing to Tegra 5.15.148 kernel headers
-- [ ] **SRC-04**: `make` and `make modules` produce ec_master and ec_r8169 kernel modules
+- [x] **SRC-01**: Package fetches IgH EtherCAT 1.6 source from official GitLab repo (https://gitlab.com/etherlab.org/ethercat.git, stable-1.6)
+- [x] **SRC-02**: Package installs build-essential and automake as build dependencies
+- [x] **SRC-03**: Configure runs with `--enable-r8169 --with-linux-dir` pointing to Tegra 5.15.148 kernel headers
+- [x] **SRC-04**: `make` and `make modules` produce ec_master and ec_r8169 kernel modules
 
 ### Debian Packaging
 
@@ -73,10 +73,10 @@
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| SRC-01 | Phase 2 | Pending |
-| SRC-02 | Phase 2 | Pending |
-| SRC-03 | Phase 2 | Pending |
-| SRC-04 | Phase 2 | Pending |
+| SRC-01 | Phase 2 | Complete |
+| SRC-02 | Phase 2 | Complete |
+| SRC-03 | Phase 2 | Complete |
+| SRC-04 | Phase 2 | Complete |
 | DEB-01 | Phase 1 | Complete |
 | DEB-02 | Phase 1 | Complete |
 | DEB-03 | Phase 1 | Complete |
