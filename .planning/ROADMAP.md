@@ -62,7 +62,7 @@ Plans:
 **Plans:** 1/1 plans complete
 
 Plans:
-- [ ] 03-01-PLAN.md — Create postinst maintainer script and add --no-start override to debian/rules
+- [x] 03-01-PLAN.md — Create postinst maintainer script and add --no-start override to debian/rules
 
 ### Phase 4: Removal Lifecycle
 **Goal**: dpkg -r or dpkg -P removes the package cleanly — service stopped, modules unloaded, no leftover state that prevents reinstall
@@ -72,7 +72,10 @@ Plans:
   1. prerm stops ethercat.service before any .ko files are removed
   2. prerm unloads ec_master and ec_r8169 kernel modules before removal completes
   3. Reinstalling the package after removal does not produce module-in-use or service-already-running errors
-**Plans**: TBD
+**Plans:** 1 plan
+
+Plans:
+- [ ] 04-01-PLAN.md — Create prerm maintainer script to stop service and unload kernel modules
 
 ### Phase 5: Docker Verification
 **Goal**: docker build succeeds end-to-end — IgH source fetched, .deb built, dpkg -i succeeds — with no errors and with ec_r8169.ko confirmed present
@@ -103,7 +106,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
 |-------|----------------|--------|-----------|
 | 1. Debian Scaffold | 1/1 | Complete    | 2026-03-17 |
 | 2. Source and Build | 1/1 | Complete    | 2026-03-17 |
-| 3. Install Lifecycle | 0/1 | Complete    | 2026-03-17 |
-| 4. Removal Lifecycle | 0/TBD | Not started | - |
+| 3. Install Lifecycle | 1/1 | Complete    | 2026-03-17 |
+| 4. Removal Lifecycle | 0/1 | Not started | - |
 | 5. Docker Verification | 0/TBD | Not started | - |
 | 6. CI/CD Pipeline | 0/TBD | Not started | - |
