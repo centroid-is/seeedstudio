@@ -17,7 +17,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 3: Install Lifecycle** - postinst installs blacklist, runs depmod, auto-detects MAC, writes ethercat.conf, starts service in correct order (completed 2026-03-17)
 - [x] **Phase 4: Removal Lifecycle** - prerm stops service and unloads modules cleanly before file removal
 - [x] **Phase 5: Docker Verification** - Dockerfile builds .deb from scratch and verifies dpkg -i succeeds (completed 2026-03-17)
-- [ ] **Phase 6: CI/CD Pipeline** - GitHub Actions builds .deb on push, publishes GitHub Release artifact on v* tag
+- [x] **Phase 6: CI/CD Pipeline** - GitHub Actions builds .deb on push, publishes GitHub Release artifact on v* tag (completed 2026-03-17)
 
 ## Phase Details
 
@@ -98,7 +98,7 @@ Plans:
   1. Pushing to main triggers a GitHub Actions workflow that builds the .deb on ubuntu-22.04-arm (native arm64, not QEMU)
   2. Pushing a v* tag creates a GitHub Release with the .deb file attached as a release asset
   3. gh run watch shows build progress in real time for any triggered run
-**Plans:** 1 plan
+**Plans:** 1/1 plans complete
 
 Plans:
 - [ ] 06-01-PLAN.md — Create GitHub Actions workflow with build and release jobs
@@ -115,4 +115,4 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
 | 3. Install Lifecycle | 1/1 | Complete    | 2026-03-17 |
 | 4. Removal Lifecycle | 1/1 | Complete    | 2026-03-17 |
 | 5. Docker Verification | 1/1 | Complete    | 2026-03-17 |
-| 6. CI/CD Pipeline | 0/1 | Not started | - |
+| 6. CI/CD Pipeline | 0/1 | Complete    | 2026-03-17 |
