@@ -1,11 +1,11 @@
 ---
 gsd_state_version: 1.0
 milestone: v1.0
-milestone_name: milestone
-status: completed
-stopped_at: Completed 06-01-PLAN.md
-last_updated: "2026-03-17T18:07:31.319Z"
-last_activity: 2026-03-17 — Completed 06-01-PLAN.md (GitHub Actions workflow)
+milestone_name: IgH EtherCAT Debian Package
+status: shipped
+stopped_at: Milestone v1.0 shipped
+last_updated: "2026-03-17T18:30:00Z"
+last_activity: 2026-03-17 — Milestone v1.0 shipped
 progress:
   total_phases: 6
   completed_phases: 6
@@ -21,86 +21,26 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-17)
 
 **Core value:** A single `dpkg -i` installs a working EtherCAT master on a Jetson with the Realtek r8169 NIC
-**Current focus:** Phase 6 - CI/CD Pipeline (COMPLETE)
+**Current focus:** v1.0 shipped — next milestone not yet defined
 
 ## Current Position
 
-Phase: 6 of 6 (CI/CD Pipeline)
-Plan: 1 of 1 in current phase
-Status: All phases complete
-Last activity: 2026-03-17 — Completed 06-01-PLAN.md (GitHub Actions workflow)
+Milestone: v1.0 — IgH EtherCAT Debian Package
+Status: SHIPPED (2026-03-17)
+All 6 phases complete, 21/21 requirements satisfied
 
 Progress: [██████████] 100%
-
-## Performance Metrics
-
-**Velocity:**
-- Total plans completed: 6
-- Average duration: 2min
-- Total execution time: 0.15 hours
-
-**By Phase:**
-
-| Phase | Plans | Total | Avg/Plan |
-|-------|-------|-------|----------|
-| 01-debian-scaffold | 1 | 2min | 2min |
-| 02-source-and-build | 1 | 2min | 2min |
-| 03-install-lifecycle | 1 | 2min | 2min |
-| 04-removal-lifecycle | 1 | 1min | 1min |
-| 05-docker-verification | 1 | 1min | 1min |
-| 06-ci-cd-pipeline | 1 | 1min | 1min |
-
-**Recent Trend:**
-- Last 5 plans: 02-01 (2min), 03-01 (2min), 04-01 (1min), 05-01 (1min), 06-01 (1min)
-- Trend: stable
-
-*Updated after each plan completion*
 
 ## Accumulated Context
 
 ### Decisions
 
-Decisions are logged in PROJECT.md Key Decisions table.
-Recent decisions affecting current work:
-
-- All phases: Use --prefix=/usr in configure (ethercatctl reads /etc/ethercat.conf, not /usr/local/etc/)
-- Phase 3: Use "install r8169 /bin/true" in blacklist, not "blacklist r8169" (udev bypass)
-- Phase 3: depmod must run before systemctl restart ethercat in postinst
-- Phase 2: Assert devices/ec_r8169.ko exists after make (fails loudly if r8169 silently dropped)
-- All phases: Docker for build/install verification only — cannot load kernel modules in container
-- [Phase 01]: Used nvidia-l4t-kernel-headers without version pin in Build-Depends (to be refined in Phase 2)
-- [Phase 01]: Created debian/compat with value 13 (redundant with Build-Depends but roadmap requires it)
-- [Phase 01]: Used 3.0 (native) source format for single-repo project
-- [Phase 02]: Used override_dh_update_autotools_config for source fetch (runs before autoreconf/configure)
-- [Phase 02]: Used --with-module-dir=extra (modules install to /lib/modules/ver/extra/ per roadmap)
-- [Phase 02]: Added override_dh_autoreconf with @true to skip autoreconf in wrong directory
-- [Phase 02]: Added override_dh_shlibdeps -X.ko for kernel module shlibdeps exclusion
-- [Phase 03-install-lifecycle]: Service start placed AFTER #DEBHELPER# token to ensure depmod runs first
-- [Phase 03-install-lifecycle]: systemctl restart guarded by /run/systemd/system check for Docker/chroot safety
-- [Phase 03-install-lifecycle]: MAC detection graceful fallback (empty string + stderr warning) when interface not present
-- [Phase 04-removal-lifecycle]: Module unload order: ec_r8169 before ec_master (dependency order)
-- [Phase 04-removal-lifecycle]: systemctl stop guarded by /run/systemd/system check (Docker/chroot safety)
-- [Phase 04-removal-lifecycle]: All prerm operations use || true to prevent dpkg removal failure
-- [Phase 04-removal-lifecycle]: postrm purge deferred to v2 (REM-03 out of scope)
-- [Phase 05]: Used apt-get download + dpkg -x for nvidia-l4t-kernel-headers (bypass nvidia-l4t-core preinst)
-- [Phase 05]: No || true on dpkg -i step (fail loudly on install error)
-- [Phase 05]: Used r36.4 release designation for L4T apt repo (matches 5.15.148-tegra kernel)
-- [Phase 06-ci-cd-pipeline]: Native arm64 runner (ubuntu-22.04-arm) instead of QEMU for build performance
-- [Phase 06-ci-cd-pipeline]: Reuse Dockerfile as single source of truth for CI build (no duplicated build logic)
-- [Phase 06-ci-cd-pipeline]: Two-job architecture: build (always) + release (tag-conditional) with artifact passing
+See PROJECT.md Key Decisions table for full list (10 key decisions, all marked ✓ Good).
 
 ### Pending Todos
 
-None yet.
+None.
 
 ### Blockers/Concerns
 
-- Phase 1/2: Exact NVIDIA L4T apt repo URL for nvidia-l4t-kernel-headers=5.15.148-tegra needs validation before writing Dockerfile/CI
-- Phase 3: update-initramfs behavior on Jetson L4T may differ from standard Ubuntu — validate on hardware
-- Phase 2: r8169 compatibility with kernel 5.15.148-tegra is unverified — build assertion will surface any issue
-
-## Session Continuity
-
-Last session: 2026-03-17T18:04:37.854Z
-Stopped at: Completed 06-01-PLAN.md
-Resume file: None
+None — milestone shipped.
