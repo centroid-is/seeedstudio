@@ -40,12 +40,18 @@ RUN apt-get update && \
     apt-get download nvidia-l4t-kernel-headers && \
     mkdir -p /tmp/headers && \
     dpkg -x nvidia-l4t-kernel-headers_*.deb /tmp/headers && \
-    cp -a /tmp/headers/usr/src/linux-headers-* /usr/src/ && \
+    ls /tmp/headers/usr/src/ && \
+    cp -a /tmp/headers/usr/src/* /usr/src/ && \
     rm -rf /tmp/headers /tmp/nvidia-l4t-kernel-headers_*.deb && \
     rm -rf /var/lib/apt/lists/*
 
-# Assert kernel headers are in place
-RUN test -d /usr/src/linux-headers-5.15.148-tegra
+# Create symlink if headers directory has a different name than expected
+RUN ls /usr/src/ && \
+    if [ ! -d /usr/src/linux-headers-5.15.148-tegra ]; then \
+      ACTUAL=$(ls -d /usr/src/linux-headers-5.15.148* 2>/dev/null | head -1) && \
+      ln -s "$ACTUAL" /usr/src/linux-headers-5.15.148-tegra; \
+    fi && \
+    test -d /usr/src/linux-headers-5.15.148-tegra
 
 # --- Stage 6: Copy source and build ---
 COPY . /build/igh-seeedstudio
