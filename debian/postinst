@@ -32,25 +32,17 @@ MASTER0_DEVICE="${MAC}"
 DEVICE_MODULES="r8169"
 CONF
 
-        # --- INST-02 + service enable handled by #DEBHELPER# ---
-        # dh_installmodules generates: depmod -a
-        # dh_installsystemd generates: systemctl enable ethercat.service
-        #DEBHELPER#
+        # --- INST-02: Register kernel modules ---
+        depmod -a || true
 
-        # --- INST-05: Start service AFTER depmod (from #DEBHELPER# above) ---
+        # --- INST-05: Start service AFTER depmod ---
         if [ -d /run/systemd/system ]; then
             systemctl restart ethercat.service || true
         fi
         ;;
-
-    abort-upgrade|abort-remove|abort-deconfigure)
-        #DEBHELPER#
-        ;;
-
-    *)
-        echo "postinst called with unknown argument: $1" >&2
-        exit 1
-        ;;
 esac
+
+# debhelper-generated code (systemctl enable, daemon-reload, triggers)
+#DEBHELPER#
 
 exit 0

@@ -13,18 +13,9 @@ case "$1" in
         # ec_r8169 depends on ec_master, so unload ec_r8169 first
         rmmod ec_r8169 2>/dev/null || true
         rmmod ec_master 2>/dev/null || true
-
-        #DEBHELPER#
-        ;;
-
-    deconfigure|failed-upgrade)
-        #DEBHELPER#
-        ;;
-
-    *)
-        echo "prerm called with unknown argument: $1" >&2
-        exit 1
         ;;
 esac
+
+#DEBHELPER#
 
 exit 0
