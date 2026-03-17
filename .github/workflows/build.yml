@@ -8,8 +8,23 @@ on:
 jobs:
   build:
     runs-on: ubuntu-22.04-arm
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
+
+      - name: Set version from tag
+        if: startsWith(github.ref, 'refs/tags/v')
+        run: |
+          VERSION=${GITHUB_REF_NAME#v}
+          sed -i "1s/(.*)/($VERSION)/" debian/changelog
+          echo "DEB=igh-seeedstudio_${VERSION}_arm64.deb" >> "$GITHUB_ENV"
+
+      - name: Set version from changelog
+        if: ${{ !startsWith(github.ref, 'refs/tags/v') }}
+        run: |
+          VERSION=$(head -1 debian/changelog | grep -oP '\(.*?\)' | tr -d '()')
+          echo "DEB=igh-seeedstudio_${VERSION}_arm64.deb" >> "$GITHUB_ENV"
 
       - name: Build .deb in Docker
         run: docker build -t igh-seeedstudio-build .
@@ -17,30 +32,17 @@ jobs:
       - name: Extract .deb from Docker image
         run: |
           docker create --name extract igh-seeedstudio-build
-          docker cp extract:/build/igh-seeedstudio_1.6.0_arm64.deb .
+          docker cp "extract:/build/$DEB" .
           docker rm extract
 
       - name: Upload .deb artifact
         uses: actions/upload-artifact@v4
         with:
           name: igh-seeedstudio-deb
-          path: igh-seeedstudio_1.6.0_arm64.deb
+          path: ${{ env.DEB }}
 
-  release:
-    runs-on: ubuntu-22.04-arm
-    needs: [build]
-    if: startsWith(github.ref, 'refs/tags/v')
-    permissions:
-      contents: write
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Download .deb artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: igh-seeedstudio-deb
-
-      - name: Create GitHub Release
-        run: gh release create "$GITHUB_REF_NAME" igh-seeedstudio_1.6.0_arm64.deb --title "$GITHUB_REF_NAME" --generate-notes
+      - name: Attach .deb to release
+        if: startsWith(github.ref, 'refs/tags/v')
+        run: gh release upload "$GITHUB_REF_NAME" "$DEB" --clobber
         env:
           GH_TOKEN: ${{ github.token }}

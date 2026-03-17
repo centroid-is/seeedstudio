@@ -54,7 +54,7 @@ RUN dpkg-buildpackage -us -uc -b -d
 
 # --- Install verification ---
 # postinst is Docker-safe (systemctl guarded, MAC detection has fallback)
-RUN dpkg -i /build/igh-seeedstudio_1.6.0_arm64.deb
+RUN dpkg -i /build/igh-seeedstudio_1.6.8_arm64.deb
 
 # --- Final assertions ---
 RUN test -f /lib/modules/5.15.148-tegra/extra/devices/r8169/ec_r8169.ko && echo "PASS: ec_r8169.ko is present"
