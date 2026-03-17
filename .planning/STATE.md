@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: completed
-stopped_at: Completed 05-01-PLAN.md
-last_updated: "2026-03-17T17:56:25.662Z"
-last_activity: 2026-03-17 — Completed 05-01-PLAN.md (Dockerfile and .dockerignore)
+stopped_at: Completed 06-01-PLAN.md
+last_updated: "2026-03-17T18:04:37.856Z"
+last_activity: 2026-03-17 — Completed 06-01-PLAN.md (GitHub Actions workflow)
 progress:
   total_phases: 6
-  completed_phases: 5
-  total_plans: 5
-  completed_plans: 5
+  completed_phases: 6
+  total_plans: 6
+  completed_plans: 6
   percent: 100
 ---
 
@@ -21,23 +21,23 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-17)
 
 **Core value:** A single `dpkg -i` installs a working EtherCAT master on a Jetson with the Realtek r8169 NIC
-**Current focus:** Phase 5 - Docker Verification
+**Current focus:** Phase 6 - CI/CD Pipeline (COMPLETE)
 
 ## Current Position
 
-Phase: 5 of 6 (Docker Verification)
+Phase: 6 of 6 (CI/CD Pipeline)
 Plan: 1 of 1 in current phase
-Status: Phase 5 complete
-Last activity: 2026-03-17 — Completed 05-01-PLAN.md (Dockerfile and .dockerignore)
+Status: All phases complete
+Last activity: 2026-03-17 — Completed 06-01-PLAN.md (GitHub Actions workflow)
 
 Progress: [██████████] 100%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 5
+- Total plans completed: 6
 - Average duration: 2min
-- Total execution time: 0.13 hours
+- Total execution time: 0.15 hours
 
 **By Phase:**
 
@@ -48,9 +48,10 @@ Progress: [██████████] 100%
 | 03-install-lifecycle | 1 | 2min | 2min |
 | 04-removal-lifecycle | 1 | 1min | 1min |
 | 05-docker-verification | 1 | 1min | 1min |
+| 06-ci-cd-pipeline | 1 | 1min | 1min |
 
 **Recent Trend:**
-- Last 5 plans: 01-01 (2min), 02-01 (2min), 03-01 (2min), 04-01 (1min), 05-01 (1min)
+- Last 5 plans: 02-01 (2min), 03-01 (2min), 04-01 (1min), 05-01 (1min), 06-01 (1min)
 - Trend: stable
 
 *Updated after each plan completion*
@@ -84,6 +85,9 @@ Recent decisions affecting current work:
 - [Phase 05]: Used apt-get download + dpkg -x for nvidia-l4t-kernel-headers (bypass nvidia-l4t-core preinst)
 - [Phase 05]: No || true on dpkg -i step (fail loudly on install error)
 - [Phase 05]: Used r36.4 release designation for L4T apt repo (matches 5.15.148-tegra kernel)
+- [Phase 06-ci-cd-pipeline]: Native arm64 runner (ubuntu-22.04-arm) instead of QEMU for build performance
+- [Phase 06-ci-cd-pipeline]: Reuse Dockerfile as single source of truth for CI build (no duplicated build logic)
+- [Phase 06-ci-cd-pipeline]: Two-job architecture: build (always) + release (tag-conditional) with artifact passing
 
 ### Pending Todos
 
@@ -97,6 +101,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-17T17:53:24.914Z
-Stopped at: Completed 05-01-PLAN.md
+Last session: 2026-03-17T18:04:37.854Z
+Stopped at: Completed 06-01-PLAN.md
 Resume file: None

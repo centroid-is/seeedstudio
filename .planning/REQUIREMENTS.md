@@ -39,10 +39,10 @@
 
 ### CI/CD
 
-- [ ] **CI-01**: GitHub Actions workflow builds .deb on every push to main
-- [ ] **CI-02**: GitHub Actions creates GitHub Release with .deb artifact on v* tag push
-- [ ] **CI-03**: CI uses native arm64 runner (ubuntu-22.04-arm or equivalent)
-- [ ] **CI-04**: CI status is watchable via `gh run watch`
+- [x] **CI-01**: GitHub Actions workflow builds .deb on every push to main
+- [x] **CI-02**: GitHub Actions creates GitHub Release with .deb artifact on v* tag push
+- [x] **CI-03**: CI uses native arm64 runner (ubuntu-22.04-arm or equivalent)
+- [x] **CI-04**: CI status is watchable via `gh run watch`
 
 ## v2 Requirements
 
@@ -90,10 +90,10 @@
 | DOC-01 | Phase 5 | Complete |
 | DOC-02 | Phase 5 | Complete |
 | DOC-03 | Phase 5 | Complete |
-| CI-01 | Phase 6 | Pending |
-| CI-02 | Phase 6 | Pending |
-| CI-03 | Phase 6 | Pending |
-| CI-04 | Phase 6 | Pending |
+| CI-01 | Phase 6 | Complete |
+| CI-02 | Phase 6 | Complete |
+| CI-03 | Phase 6 | Complete |
+| CI-04 | Phase 6 | Complete |
 
 **Coverage:**
 - v1 requirements: 21 total
