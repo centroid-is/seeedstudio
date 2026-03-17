@@ -38,8 +38,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 RUN apt-get update && \
     cd /tmp && \
     apt-get download nvidia-l4t-kernel-headers && \
-    dpkg -x nvidia-l4t-kernel-headers_*.deb / && \
-    rm -f nvidia-l4t-kernel-headers_*.deb && \
+    mkdir -p /tmp/headers && \
+    dpkg -x nvidia-l4t-kernel-headers_*.deb /tmp/headers && \
+    cp -a /tmp/headers/usr/src/linux-headers-* /usr/src/ && \
+    rm -rf /tmp/headers /tmp/nvidia-l4t-kernel-headers_*.deb && \
     rm -rf /var/lib/apt/lists/*
 
 # Assert kernel headers are in place
