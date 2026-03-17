@@ -1,0 +1,20 @@
+Source: igh-seeedstudio
+Section: kernel
+Priority: optional
+Maintainer: SeeedStudio <support@seeedstudio.com>
+Build-Depends: debhelper-compat (= 13),
+               build-essential,
+               autoconf,
+               automake,
+               libtool,
+               nvidia-l4t-kernel-headers
+Standards-Version: 4.6.1
+
+Package: igh-seeedstudio
+Architecture: arm64
+Depends: ${misc:Depends}, kmod
+Description: IgH EtherCAT Master for SeeedStudio Jetson
+ Pre-compiled IgH EtherCAT Master 1.6 with the r8169 native driver
+ for NVIDIA Jetson platforms running Tegra L4T kernel 5.15.148.
+ Includes ec_master.ko and ec_r8169.ko kernel modules, the ethercat
+ CLI tool, and systemd service integration.
