@@ -1,5 +1,53 @@
 #!/usr/bin/make -f
+# IgH EtherCAT 1.6 Debian packaging for SeeedStudio Jetson
 export DH_VERBOSE = 1
+
+KDIR   := /usr/src/linux-headers-5.15.148-tegra
+SRCDIR := ethercat-src
+PKGDIR := $(CURDIR)/debian/igh-seeedstudio
 
 %:
 	dh $@
+
+# Fetch IgH EtherCAT source from official GitLab (runs before autoreconf/configure)
+override_dh_update_autotools_config:
+	git clone --depth 1 --branch stable-1.6 \
+	    https://gitlab.com/etherlab.org/ethercat.git $(SRCDIR)
+
+# Bootstrap autotools and configure with r8169 + Tegra kernel headers
+override_dh_auto_configure:
+	cd $(SRCDIR) && ./bootstrap
+	cd $(SRCDIR) && ./configure \
+	    --prefix=/usr \
+	    --sysconfdir=/etc \
+	    --with-linux-dir=$(KDIR) \
+	    --with-module-dir=extra \
+	    --enable-r8169 \
+	    --enable-generic \
+	    --disable-8139too \
+	    --disable-e1000 \
+	    --disable-e1000e
+
+# Build userspace + kernel modules, then assert ec_r8169.ko exists
+override_dh_auto_build:
+	$(MAKE) -C $(SRCDIR) all modules
+	@# Fail loudly if r8169 was silently dropped by configure
+	test -f $(SRCDIR)/devices/r8169/ec_r8169.ko || \
+	    (echo "ERROR: ec_r8169.ko was not built -- check configure output"; exit 1)
+
+# Install userspace tools + kernel modules into package staging
+override_dh_auto_install:
+	$(MAKE) -C $(SRCDIR) DESTDIR=$(PKGDIR) install
+	$(MAKE) -C $(SRCDIR) INSTALL_MOD_PATH=$(PKGDIR) modules_install
+
+# Clean cloned source for rebuild support
+override_dh_auto_clean:
+	rm -rf $(SRCDIR)
+
+# Skip autoreconf -- we run bootstrap manually in the configure override
+override_dh_autoreconf:
+	@true
+
+# Exclude .ko files from shared library dependency analysis
+override_dh_shlibdeps:
+	dh_shlibdeps -X.ko
