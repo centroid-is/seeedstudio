@@ -4,20 +4,9 @@ FROM ubuntu:22.04
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-# --- Stage 2: ca-certificates (needed for HTTPS repos) ---
-RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates
-
-# --- Stage 3: NVIDIA L4T apt repository ---
-ADD https://repo.download.nvidia.com/jetson/jetson-ota-public.asc \
-    /etc/apt/trusted.gpg.d/jetson-ota-public.asc
-RUN chmod 644 /etc/apt/trusted.gpg.d/jetson-ota-public.asc && \
-    echo "deb https://repo.download.nvidia.com/jetson/common r36.4 main" \
-      > /etc/apt/sources.list.d/nvidia-l4t-apt-source.list && \
-    echo "deb https://repo.download.nvidia.com/jetson/t234 r36.4 main" \
-      >> /etc/apt/sources.list.d/nvidia-l4t-apt-source.list
-
-# --- Stage 4: Build dependencies (mirrors debian/control Build-Depends) ---
+# --- Build dependencies ---
 RUN apt-get update && apt-get install -y --no-install-recommends \
+    ca-certificates \
     dpkg-dev \
     debhelper \
     build-essential \
@@ -27,58 +16,46 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     pkg-config \
     git \
     fakeroot \
+    wget \
+    bc flex bison libssl-dev \
     && rm -rf /var/lib/apt/lists/*
 
-# --- Stage 5: Kernel headers extraction (bypass nvidia-l4t-core preinst) ---
-# nvidia-l4t-kernel-headers depends on nvidia-l4t-kernel which pre-depends
-# on nvidia-l4t-core. The nvidia-l4t-core preinst checks
-# /proc/device-tree/compatible which does not exist in Docker containers.
-# Use apt-get download + dpkg -x to extract headers without triggering
-# the dependency chain's preinst scripts.
-RUN apt-get update && \
-    cd /tmp && \
-    apt-get download nvidia-l4t-kernel-headers && \
-    mkdir -p /tmp/headers && \
-    dpkg -x nvidia-l4t-kernel-headers_*.deb /tmp/headers && \
-    ls /tmp/headers/usr/src/ && \
-    cp -a /tmp/headers/usr/src/* /usr/src/ && \
-    rm -rf /tmp/headers /tmp/nvidia-l4t-kernel-headers_*.deb && \
-    rm -rf /var/lib/apt/lists/*
+# --- Kernel source: L4T BSP for out-of-tree module builds ---
+# The nvidia-l4t-kernel-headers apt package only provides unconfigured source
+# (just 3rdparty/ directory). Download the official L4T R36.4 kernel source,
+# configure with defconfig + LOCALVERSION=-tegra, and run modules_prepare to
+# generate the build infrastructure (.config, include/generated/autoconf.h,
+# scripts/, Module.symvers) needed by IgH EtherCAT's configure and make.
+RUN cd /tmp && \
+    wget -q https://developer.nvidia.com/downloads/embedded/l4t/r36_release_v4.0/sources/public_sources.tbz2 && \
+    tar xf public_sources.tbz2 --wildcards "*/kernel_src.tbz2" && \
+    rm public_sources.tbz2 && \
+    KSRC_TAR=$(find /tmp -name kernel_src.tbz2 -type f | head -1) && \
+    tar xf "$KSRC_TAR" -C /usr/src && \
+    rm -rf /tmp/Linux_for_Tegra "$KSRC_TAR"
 
-# Create symlink if headers directory has a different name than expected
-RUN ls /usr/src/ && \
-    if [ ! -d /usr/src/linux-headers-5.15.148-tegra ]; then \
-      ACTUAL=$(ls -d /usr/src/linux-headers-5.15.148* 2>/dev/null | head -1) && \
-      ln -s "$ACTUAL" /usr/src/linux-headers-5.15.148-tegra; \
-    fi && \
-    test -d /usr/src/linux-headers-5.15.148-tegra
+# Configure the kernel source tree for out-of-tree module builds
+RUN cd /usr/src/kernel/kernel-jammy-src && \
+    make ARCH=arm64 defconfig && \
+    scripts/config --file .config --set-str LOCALVERSION "-tegra" && \
+    make ARCH=arm64 -j$(nproc) modules_prepare && \
+    ln -sf /usr/src/kernel/kernel-jammy-src /usr/src/linux-headers-5.15.148-tegra && \
+    echo "Kernel: $(make -s kernelrelease)"
 
-# --- Stage 6: Copy source and build ---
+# --- Copy source and build ---
 COPY . /build/igh-seeedstudio
 WORKDIR /build/igh-seeedstudio
 
-# Build the .deb package
-# -us: no source signature
-# -uc: no changes signature
-# -b:  binary-only build
-# Note: ec_r8169.ko assertion is already in debian/rules override_dh_auto_build
-# Note: dpkg-buildpackage outputs .deb to parent directory /build/
-# Debug: show available L4T kernel packages and full headers structure
-RUN apt-cache search nvidia-l4t-kernel && \
-    echo "---CONTENTS---" && \
-    find /usr/src/linux-headers-5.15.148-tegra*/ -maxdepth 1 -type f -o -type d | sort | head -40
-
-# -d: skip build-deps check (nvidia-l4t-kernel-headers was extracted via
-#      dpkg -x, not installed, so dpkg doesn't know about it)
+# dpkg-buildpackage flags:
+# -us/-uc: skip signatures  -b: binary-only  -d: skip build-deps check
+# (-d needed because nvidia-l4t-kernel-headers not dpkg-installed)
 RUN dpkg-buildpackage -us -uc -b -d
 
-# --- Stage 7: Install verification ---
-# postinst is Docker-safe: systemctl guarded by /run/systemd/system check,
-# MAC detection has graceful fallback. Do NOT use "|| true" here -- we want
-# dpkg -i to fail loudly if install breaks.
+# --- Install verification ---
+# postinst is Docker-safe (systemctl guarded, MAC detection has fallback)
 RUN dpkg -i /build/igh-seeedstudio_1.6.0_arm64.deb
 
-# --- Stage 8: Final assertions ---
+# --- Final assertions ---
 RUN test -f /lib/modules/5.15.148-tegra/extra/ec_r8169.ko && echo "PASS: ec_r8169.ko is present"
 RUN test -f /lib/modules/5.15.148-tegra/extra/ec_master.ko && echo "PASS: ec_master.ko is present"
 RUN test -x /usr/bin/ethercat && echo "PASS: ethercat CLI is present"
