@@ -18,9 +18,9 @@ created: 2026-03-17
 | Property | Value |
 |----------|-------|
 | **Framework** | File content checks (grep, test) + Docker install verification (Phase 5) |
-| **Config file** | debian/igh-seeedstudio.postinst |
-| **Quick run command** | `test -f debian/igh-seeedstudio.postinst && test -x debian/igh-seeedstudio.postinst && echo OK` |
-| **Full suite command** | `grep -c 'depmod\|MASTER0_DEVICE\|blacklist\|systemctl\|DEVICE_MODULES' debian/igh-seeedstudio.postinst` |
+| **Config file** | debian/postinst |
+| **Quick run command** | `test -f debian/postinst && test -x debian/postinst && echo OK` |
+| **Full suite command** | `grep -c 'depmod\|MASTER0_DEVICE\|blacklist\|systemctl\|DEVICE_MODULES' debian/postinst` |
 | **Estimated runtime** | ~1 second |
 
 ---
@@ -38,11 +38,11 @@ created: 2026-03-17
 
 | Task ID | Plan | Wave | Requirement | Test Type | Automated Command | File Exists | Status |
 |---------|------|------|-------------|-----------|-------------------|-------------|--------|
-| 3-01-01 | 01 | 1 | INST-01 | content | `grep -q 'install r8169 /bin/true' debian/igh-seeedstudio.postinst && echo OK` | ⬜ W0 | ⬜ pending |
-| 3-01-02 | 01 | 1 | INST-02 | content | `grep -q 'depmod' debian/igh-seeedstudio.postinst && echo OK` | ⬜ W0 | ⬜ pending |
-| 3-01-03 | 01 | 1 | INST-03 | content | `grep -q 'enP8p1s0/address' debian/igh-seeedstudio.postinst && echo OK` | ⬜ W0 | ⬜ pending |
-| 3-01-04 | 01 | 1 | INST-04 | content | `grep -q 'DEVICE_MODULES="r8169"' debian/igh-seeedstudio.postinst && echo OK` | ⬜ W0 | ⬜ pending |
-| 3-01-05 | 01 | 1 | INST-05 | content | `grep -q 'systemctl.*ethercat' debian/igh-seeedstudio.postinst && echo OK` | ⬜ W0 | ⬜ pending |
+| 3-01-01 | 01 | 1 | INST-01 | content | `grep -q 'install r8169 /bin/true' debian/postinst && echo OK` | ⬜ W0 | ⬜ pending |
+| 3-01-02 | 01 | 1 | INST-02 | content | `grep -q 'depmod' debian/postinst && echo OK` | ⬜ W0 | ⬜ pending |
+| 3-01-03 | 01 | 1 | INST-03 | content | `grep -q 'enP8p1s0/address' debian/postinst && echo OK` | ⬜ W0 | ⬜ pending |
+| 3-01-04 | 01 | 1 | INST-04 | content | `grep -q 'DEVICE_MODULES="r8169"' debian/postinst && echo OK` | ⬜ W0 | ⬜ pending |
+| 3-01-05 | 01 | 1 | INST-05 | content | `grep -q 'systemctl.*ethercat' debian/postinst && echo OK` | ⬜ W0 | ⬜ pending |
 
 *Status: ⬜ pending · ✅ green · ❌ red · ⚠️ flaky*
 
