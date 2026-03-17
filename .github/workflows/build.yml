@@ -1,0 +1,46 @@
+name: Build .deb
+
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04-arm
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build .deb in Docker
+        run: docker build -t igh-seeedstudio-build .
+
+      - name: Extract .deb from Docker image
+        run: |
+          docker create --name extract igh-seeedstudio-build
+          docker cp extract:/build/igh-seeedstudio_1.6.0_arm64.deb .
+          docker rm extract
+
+      - name: Upload .deb artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: igh-seeedstudio-deb
+          path: igh-seeedstudio_1.6.0_arm64.deb
+
+  release:
+    runs-on: ubuntu-22.04-arm
+    needs: [build]
+    if: startsWith(github.ref, 'refs/tags/v')
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download .deb artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: igh-seeedstudio-deb
+
+      - name: Create GitHub Release
+        run: gh release create "$GITHUB_REF_NAME" igh-seeedstudio_1.6.0_arm64.deb --title "$GITHUB_REF_NAME" --generate-notes
+        env:
+          GH_TOKEN: ${{ github.token }}
