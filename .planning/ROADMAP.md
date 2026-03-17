@@ -33,7 +33,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Plans:** 1/1 plans complete
 
 Plans:
-- [ ] 01-01-PLAN.md — Create and validate all debian/ packaging metadata files
+- [x] 01-01-PLAN.md — Create and validate all debian/ packaging metadata files
 
 ### Phase 2: Source and Build
 **Goal**: Running dpkg-buildpackage inside the build environment produces igh-seeedstudio_1.6.0_arm64.deb containing both ec_master.ko and ec_r8169.ko compiled against the Tegra 5.15.148 kernel headers
@@ -44,7 +44,10 @@ Plans:
   2. configure runs with --enable-r8169, --prefix=/usr, --sysconfdir=/etc, and --with-linux-dir pointing to Tegra headers
   3. Both ec_master.ko and ec_r8169.ko are present in the built .deb package under /lib/modules/5.15.148-tegra/extra/
   4. The output file is named igh-seeedstudio_1.6.0_arm64.deb
-**Plans**: TBD
+**Plans:** 1 plan
+
+Plans:
+- [ ] 02-01-PLAN.md — Wire up debian/rules build pipeline and update debian/control Build-Depends
 
 ### Phase 3: Install Lifecycle
 **Goal**: Running dpkg -i on a Jetson results in a running EtherCAT master with no manual steps — blacklist in place, conf written with correct MAC, depmod run, service started
@@ -91,12 +94,12 @@ Plans:
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
+Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Debian Scaffold | 0/1 | Complete    | 2026-03-17 |
-| 2. Source and Build | 0/TBD | Not started | - |
+| 1. Debian Scaffold | 1/1 | Complete    | 2026-03-17 |
+| 2. Source and Build | 0/1 | Not started | - |
 | 3. Install Lifecycle | 0/TBD | Not started | - |
 | 4. Removal Lifecycle | 0/TBD | Not started | - |
 | 5. Docker Verification | 0/TBD | Not started | - |
