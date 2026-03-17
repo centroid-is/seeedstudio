@@ -12,7 +12,7 @@ Build a Debian package that delivers IgH EtherCAT Master 1.6 with the r8169 nati
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [ ] **Phase 1: Debian Scaffold** - debian/ directory with control, rules, changelog, copyright, and compat declared
+- [x] **Phase 1: Debian Scaffold** - debian/ directory with control, rules, changelog, copyright, and compat declared (completed 2026-03-17)
 - [ ] **Phase 2: Source and Build** - IgH EtherCAT 1.6 fetched, configured with --enable-r8169 and --prefix=/usr, compiled to produce ec_master.ko and ec_r8169.ko
 - [ ] **Phase 3: Install Lifecycle** - postinst installs blacklist, runs depmod, auto-detects MAC, writes ethercat.conf, starts service in correct order
 - [ ] **Phase 4: Removal Lifecycle** - prerm stops service and unloads modules cleanly before file removal
@@ -30,7 +30,7 @@ Decimal phases appear between their surrounding integers in numeric order.
   2. Package declares Architecture: arm64 in debian/control
   3. Build-Depends in debian/control includes build-essential, autoconf, automake, and the pinned nvidia-l4t-kernel-headers package
   4. dpkg-buildpackage --no-check-builddeps parses without errors
-**Plans:** 1 plan
+**Plans:** 1/1 plans complete
 
 Plans:
 - [ ] 01-01-PLAN.md — Create and validate all debian/ packaging metadata files
@@ -95,7 +95,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Debian Scaffold | 0/1 | Planning complete | - |
+| 1. Debian Scaffold | 0/1 | Complete    | 2026-03-17 |
 | 2. Source and Build | 0/TBD | Not started | - |
 | 3. Install Lifecycle | 0/TBD | Not started | - |
 | 4. Removal Lifecycle | 0/TBD | Not started | - |
