@@ -28,8 +28,8 @@
 
 ### Removal (prerm/postrm)
 
-- [ ] **REM-01**: prerm stops ethercat service before package removal
-- [ ] **REM-02**: prerm unloads EtherCAT kernel modules
+- [x] **REM-01**: prerm stops ethercat service before package removal
+- [x] **REM-02**: prerm unloads EtherCAT kernel modules
 
 ### Docker Verification
 
@@ -85,8 +85,8 @@
 | INST-03 | Phase 3 | Complete |
 | INST-04 | Phase 3 | Complete |
 | INST-05 | Phase 3 | Complete |
-| REM-01 | Phase 4 | Pending |
-| REM-02 | Phase 4 | Pending |
+| REM-01 | Phase 4 | Complete |
+| REM-02 | Phase 4 | Complete |
 | DOC-01 | Phase 5 | Pending |
 | DOC-02 | Phase 5 | Pending |
 | DOC-03 | Phase 5 | Pending |

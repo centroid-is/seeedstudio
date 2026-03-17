@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: completed
-stopped_at: Completed 03-01-PLAN.md
-last_updated: "2026-03-17T17:22:57.552Z"
-last_activity: 2026-03-17 — Completed 03-01-PLAN.md (install lifecycle postinst + rules)
+stopped_at: Completed 04-01-PLAN.md
+last_updated: "2026-03-17T17:30:58.949Z"
+last_activity: 2026-03-17 — Completed 04-01-PLAN.md (removal lifecycle prerm script)
 progress:
   total_phases: 6
-  completed_phases: 3
-  total_plans: 3
-  completed_plans: 3
+  completed_phases: 4
+  total_plans: 4
+  completed_plans: 4
   percent: 100
 ---
 
@@ -21,23 +21,23 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-17)
 
 **Core value:** A single `dpkg -i` installs a working EtherCAT master on a Jetson with the Realtek r8169 NIC
-**Current focus:** Phase 3 - Install Lifecycle
+**Current focus:** Phase 4 - Removal Lifecycle
 
 ## Current Position
 
-Phase: 3 of 6 (Install Lifecycle)
+Phase: 4 of 6 (Removal Lifecycle)
 Plan: 1 of 1 in current phase
-Status: Phase 3 complete
-Last activity: 2026-03-17 — Completed 03-01-PLAN.md (install lifecycle postinst + rules)
+Status: Phase 4 complete
+Last activity: 2026-03-17 — Completed 04-01-PLAN.md (removal lifecycle prerm script)
 
 Progress: [██████████] 100%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 3
+- Total plans completed: 4
 - Average duration: 2min
-- Total execution time: 0.10 hours
+- Total execution time: 0.12 hours
 
 **By Phase:**
 
@@ -46,9 +46,10 @@ Progress: [██████████] 100%
 | 01-debian-scaffold | 1 | 2min | 2min |
 | 02-source-and-build | 1 | 2min | 2min |
 | 03-install-lifecycle | 1 | 2min | 2min |
+| 04-removal-lifecycle | 1 | 1min | 1min |
 
 **Recent Trend:**
-- Last 5 plans: 01-01 (2min), 02-01 (2min), 03-01 (2min)
+- Last 5 plans: 01-01 (2min), 02-01 (2min), 03-01 (2min), 04-01 (1min)
 - Trend: stable
 
 *Updated after each plan completion*
@@ -75,6 +76,10 @@ Recent decisions affecting current work:
 - [Phase 03-install-lifecycle]: Service start placed AFTER #DEBHELPER# token to ensure depmod runs first
 - [Phase 03-install-lifecycle]: systemctl restart guarded by /run/systemd/system check for Docker/chroot safety
 - [Phase 03-install-lifecycle]: MAC detection graceful fallback (empty string + stderr warning) when interface not present
+- [Phase 04-removal-lifecycle]: Module unload order: ec_r8169 before ec_master (dependency order)
+- [Phase 04-removal-lifecycle]: systemctl stop guarded by /run/systemd/system check (Docker/chroot safety)
+- [Phase 04-removal-lifecycle]: All prerm operations use || true to prevent dpkg removal failure
+- [Phase 04-removal-lifecycle]: postrm purge deferred to v2 (REM-03 out of scope)
 
 ### Pending Todos
 
@@ -88,6 +93,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-17T17:14:59Z
-Stopped at: Completed 03-01-PLAN.md
+Last session: 2026-03-17T17:30:58.947Z
+Stopped at: Completed 04-01-PLAN.md
 Resume file: None
