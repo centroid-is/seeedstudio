@@ -13,7 +13,7 @@ Build a Debian package that delivers IgH EtherCAT Master 1.6 with the r8169 nati
 Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Debian Scaffold** - debian/ directory with control, rules, changelog, copyright, and compat declared (completed 2026-03-17)
-- [ ] **Phase 2: Source and Build** - IgH EtherCAT 1.6 fetched, configured with --enable-r8169 and --prefix=/usr, compiled to produce ec_master.ko and ec_r8169.ko
+- [x] **Phase 2: Source and Build** - IgH EtherCAT 1.6 fetched, configured with --enable-r8169 and --prefix=/usr, compiled to produce ec_master.ko and ec_r8169.ko (completed 2026-03-17)
 - [ ] **Phase 3: Install Lifecycle** - postinst installs blacklist, runs depmod, auto-detects MAC, writes ethercat.conf, starts service in correct order
 - [ ] **Phase 4: Removal Lifecycle** - prerm stops service and unloads modules cleanly before file removal
 - [ ] **Phase 5: Docker Verification** - Dockerfile builds .deb from scratch and verifies dpkg -i succeeds
@@ -44,7 +44,7 @@ Plans:
   2. configure runs with --enable-r8169, --prefix=/usr, --sysconfdir=/etc, and --with-linux-dir pointing to Tegra headers
   3. Both ec_master.ko and ec_r8169.ko are present in the built .deb package under /lib/modules/5.15.148-tegra/extra/
   4. The output file is named igh-seeedstudio_1.6.0_arm64.deb
-**Plans:** 1 plan
+**Plans:** 1/1 plans complete
 
 Plans:
 - [ ] 02-01-PLAN.md — Wire up debian/rules build pipeline and update debian/control Build-Depends
@@ -99,7 +99,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Debian Scaffold | 1/1 | Complete    | 2026-03-17 |
-| 2. Source and Build | 0/1 | Not started | - |
+| 2. Source and Build | 0/1 | Complete    | 2026-03-17 |
 | 3. Install Lifecycle | 0/TBD | Not started | - |
 | 4. Removal Lifecycle | 0/TBD | Not started | - |
 | 5. Docker Verification | 0/TBD | Not started | - |
