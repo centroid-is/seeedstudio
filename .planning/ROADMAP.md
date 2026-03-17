@@ -72,7 +72,7 @@ Plans:
   1. prerm stops ethercat.service before any .ko files are removed
   2. prerm unloads ec_master and ec_r8169 kernel modules before removal completes
   3. Reinstalling the package after removal does not produce module-in-use or service-already-running errors
-**Plans:** 1 plan
+**Plans:** 1/1 plans complete
 
 Plans:
 - [ ] 04-01-PLAN.md — Create prerm maintainer script to stop service and unload kernel modules
