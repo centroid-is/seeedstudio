@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: completed
-stopped_at: Completed 04-01-PLAN.md
-last_updated: "2026-03-17T17:34:19.909Z"
-last_activity: 2026-03-17 — Completed 04-01-PLAN.md (removal lifecycle prerm script)
+stopped_at: Completed 05-01-PLAN.md
+last_updated: "2026-03-17T17:53:24.916Z"
+last_activity: 2026-03-17 — Completed 05-01-PLAN.md (Dockerfile and .dockerignore)
 progress:
   total_phases: 6
-  completed_phases: 4
-  total_plans: 4
-  completed_plans: 4
+  completed_phases: 5
+  total_plans: 5
+  completed_plans: 5
   percent: 100
 ---
 
@@ -21,23 +21,23 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-17)
 
 **Core value:** A single `dpkg -i` installs a working EtherCAT master on a Jetson with the Realtek r8169 NIC
-**Current focus:** Phase 4 - Removal Lifecycle
+**Current focus:** Phase 5 - Docker Verification
 
 ## Current Position
 
-Phase: 4 of 6 (Removal Lifecycle)
+Phase: 5 of 6 (Docker Verification)
 Plan: 1 of 1 in current phase
-Status: Phase 4 complete
-Last activity: 2026-03-17 — Completed 04-01-PLAN.md (removal lifecycle prerm script)
+Status: Phase 5 complete
+Last activity: 2026-03-17 — Completed 05-01-PLAN.md (Dockerfile and .dockerignore)
 
 Progress: [██████████] 100%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 4
+- Total plans completed: 5
 - Average duration: 2min
-- Total execution time: 0.12 hours
+- Total execution time: 0.13 hours
 
 **By Phase:**
 
@@ -47,9 +47,10 @@ Progress: [██████████] 100%
 | 02-source-and-build | 1 | 2min | 2min |
 | 03-install-lifecycle | 1 | 2min | 2min |
 | 04-removal-lifecycle | 1 | 1min | 1min |
+| 05-docker-verification | 1 | 1min | 1min |
 
 **Recent Trend:**
-- Last 5 plans: 01-01 (2min), 02-01 (2min), 03-01 (2min), 04-01 (1min)
+- Last 5 plans: 01-01 (2min), 02-01 (2min), 03-01 (2min), 04-01 (1min), 05-01 (1min)
 - Trend: stable
 
 *Updated after each plan completion*
@@ -80,6 +81,9 @@ Recent decisions affecting current work:
 - [Phase 04-removal-lifecycle]: systemctl stop guarded by /run/systemd/system check (Docker/chroot safety)
 - [Phase 04-removal-lifecycle]: All prerm operations use || true to prevent dpkg removal failure
 - [Phase 04-removal-lifecycle]: postrm purge deferred to v2 (REM-03 out of scope)
+- [Phase 05]: Used apt-get download + dpkg -x for nvidia-l4t-kernel-headers (bypass nvidia-l4t-core preinst)
+- [Phase 05]: No || true on dpkg -i step (fail loudly on install error)
+- [Phase 05]: Used r36.4 release designation for L4T apt repo (matches 5.15.148-tegra kernel)
 
 ### Pending Todos
 
@@ -93,6 +97,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-17T17:30:58.947Z
-Stopped at: Completed 04-01-PLAN.md
+Last session: 2026-03-17T17:53:24.914Z
+Stopped at: Completed 05-01-PLAN.md
 Resume file: None

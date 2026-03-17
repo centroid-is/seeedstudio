@@ -33,9 +33,9 @@
 
 ### Docker Verification
 
-- [ ] **DOC-01**: Dockerfile builds the .deb from scratch in an aarch64 ubuntu:22.04 environment
-- [ ] **DOC-02**: Dockerfile verifies the .deb installs without errors (dpkg -i succeeds)
-- [ ] **DOC-03**: Docker build runs before r8168 driver is unloaded (tests build in safe environment)
+- [x] **DOC-01**: Dockerfile builds the .deb from scratch in an aarch64 ubuntu:22.04 environment
+- [x] **DOC-02**: Dockerfile verifies the .deb installs without errors (dpkg -i succeeds)
+- [x] **DOC-03**: Docker build runs before r8168 driver is unloaded (tests build in safe environment)
 
 ### CI/CD
 
@@ -87,9 +87,9 @@
 | INST-05 | Phase 3 | Complete |
 | REM-01 | Phase 4 | Complete |
 | REM-02 | Phase 4 | Complete |
-| DOC-01 | Phase 5 | Pending |
-| DOC-02 | Phase 5 | Pending |
-| DOC-03 | Phase 5 | Pending |
+| DOC-01 | Phase 5 | Complete |
+| DOC-02 | Phase 5 | Complete |
+| DOC-03 | Phase 5 | Complete |
 | CI-01 | Phase 6 | Pending |
 | CI-02 | Phase 6 | Pending |
 | CI-03 | Phase 6 | Pending |
