@@ -51,3 +51,8 @@ override_dh_autoreconf:
 # Exclude .ko files from shared library dependency analysis
 override_dh_shlibdeps:
 	dh_shlibdeps -X.ko
+
+# Prevent dh_installsystemd from starting the service during install.
+# The postinst starts it manually after depmod runs via #DEBHELPER#.
+override_dh_installsystemd:
+	dh_installsystemd --no-start
