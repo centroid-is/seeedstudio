@@ -85,7 +85,10 @@ Plans:
   1. docker build completes without errors on aarch64 using ubuntu:22.04 base
   2. dpkg -i inside the container exits 0 with no error or warning output
   3. The Dockerfile asserts that devices/ec_r8169.ko exists after make (build fails loudly if r8169 module was not produced)
-**Plans**: TBD
+**Plans:** 1 plan
+
+Plans:
+- [ ] 05-01-PLAN.md — Create Dockerfile and .dockerignore for end-to-end build and install verification
 
 ### Phase 6: CI/CD Pipeline
 **Goal**: Every push to main triggers a .deb build on a native arm64 runner, and every v* tag push creates a GitHub Release with the .deb as a downloadable artifact
@@ -108,5 +111,5 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
 | 2. Source and Build | 1/1 | Complete    | 2026-03-17 |
 | 3. Install Lifecycle | 1/1 | Complete    | 2026-03-17 |
 | 4. Removal Lifecycle | 1/1 | Complete    | 2026-03-17 |
-| 5. Docker Verification | 0/TBD | Not started | - |
+| 5. Docker Verification | 0/1 | Not started | - |
 | 6. CI/CD Pipeline | 0/TBD | Not started | - |
