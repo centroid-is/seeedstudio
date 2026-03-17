@@ -47,7 +47,7 @@ Plans:
 **Plans:** 1/1 plans complete
 
 Plans:
-- [ ] 02-01-PLAN.md — Wire up debian/rules build pipeline and update debian/control Build-Depends
+- [x] 02-01-PLAN.md — Wire up debian/rules build pipeline and update debian/control Build-Depends
 
 ### Phase 3: Install Lifecycle
 **Goal**: Running dpkg -i on a Jetson results in a running EtherCAT master with no manual steps — blacklist in place, conf written with correct MAC, depmod run, service started
@@ -59,7 +59,10 @@ Plans:
   3. /etc/ethercat.conf is written with MASTER0_DEVICE set to the MAC address read from /sys/class/net/enP8p1s0/address
   4. /etc/ethercat.conf contains DEVICE_MODULES="r8169"
   5. ethercat.service is enabled and started (or restarted) as the final postinst step
-**Plans**: TBD
+**Plans:** 1 plan
+
+Plans:
+- [ ] 03-01-PLAN.md — Create postinst maintainer script and add --no-start override to debian/rules
 
 ### Phase 4: Removal Lifecycle
 **Goal**: dpkg -r or dpkg -P removes the package cleanly — service stopped, modules unloaded, no leftover state that prevents reinstall
@@ -99,8 +102,8 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Debian Scaffold | 1/1 | Complete    | 2026-03-17 |
-| 2. Source and Build | 0/1 | Complete    | 2026-03-17 |
-| 3. Install Lifecycle | 0/TBD | Not started | - |
+| 2. Source and Build | 1/1 | Complete    | 2026-03-17 |
+| 3. Install Lifecycle | 0/1 | Not started | - |
 | 4. Removal Lifecycle | 0/TBD | Not started | - |
 | 5. Docker Verification | 0/TBD | Not started | - |
 | 6. CI/CD Pipeline | 0/TBD | Not started | - |
